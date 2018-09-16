@@ -1,0 +1,44 @@
+<div class="col-md-12">
+  <h2> Customer Details</h2>
+  <button class="btn btn-danger" routerLink="/add-customer"> Add Customer</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Discount</th>
+      <th>Birthdate</th>
+      <th>Address</th>
+      <th>Passport id</th>
+      <th>Passport issued by</th>
+      <th>Passport issue date</th>
+      <th>In blacklist?</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of customers">
+      <td class="hidden">{{customer.id}}</td>
+      <td>{{customer.name}}</td>
+      <td>{{customer.phone}}</td>
+      <td>{{customer.email}}</td>
+      <td>{{customer.discount}}</td>
+      <td>{{customer.birthdate}}</td>
+      <td>{{customer.address}}</td>
+      <td>{{customer.passport_id}}</td>
+      <td>{{customer.issued_by}}</td>
+      <td>{{customer.issue_date}}</td>
+      <td>{{customer.in_blacklist}}</td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteCustomer(customer)"> Delete</button>
+        <button class="btn btn-danger" (click)="editCustomer(customer)" style="margin-left: 20px;"> Edit</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
