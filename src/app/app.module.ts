@@ -11,6 +11,8 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AngularTokenModule} from 'angular-token';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,16 +20,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CustomersComponent,
     DashboardComponent,
     EditCustomerComponent,
-    AddCustomerComponent
+    AddCustomerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularTokenModule.forRoot({
+      apiBase:                 'http://localhost:3000/api/v1',
+      signInPath:              'auth/sign_in',
+      signOutPath:             'auth/sign_out',
+      validateTokenPath:       'auth/validate_token',
+      signOutFailedValidate:   false,
+      registerAccountPath:     'auth',
+      deleteAccountPath:       'auth',
+      updatePasswordPath:      'auth',
+      resetPasswordPath:       'auth/password'
+    })
   ],
-  providers: [CustomerService],
+  providers: [CustomerService, AngularTokenModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

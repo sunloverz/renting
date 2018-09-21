@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerService} from '../customer.service';
 import { Router } from '@angular/router';
 import {Customer} from '../customer';
-import {first} from "rxjs/operators";
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-customer',
@@ -19,7 +19,7 @@ export class EditCustomerComponent implements OnInit {
   ngOnInit() {
     const customerId = localStorage.getItem("editCustomerId");
     if (!customerId) {
-      alert("Invalid action.");
+      alert('Invalid action.');
       this.router.navigate(['customers']);
       return;
     }
