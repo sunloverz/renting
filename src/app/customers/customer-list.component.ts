@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { CustomerService } from '../customer.service';
-import { Customer } from '../customer';
+import { CustomerService } from '../core';
+import { Customer } from '../core';
 
 @Component({
-  selector: 'app-customers',
-  templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.css']
+  selector: 'app-customer-list',
+  templateUrl: './customer-list.component.html',
+  styleUrls: ['./customer-list.component.css']
 })
-export class CustomersComponent implements OnInit {
+
+export class CustomerListComponent implements OnInit {
   customers: Customer[];
 
   constructor(private customerService: CustomerService, private router: Router) { }
@@ -34,8 +35,8 @@ export class CustomersComponent implements OnInit {
   }
 
   editCustomer(customer: Customer): void {
-    localStorage.removeItem("editCustomerId");
-    localStorage.setItem("editCustomerId", customer.id.toString());
+    localStorage.removeItem('editCustomerId');
+    localStorage.setItem('editCustomerId', customer.id.toString());
     this.router.navigate(['edit-customer']);
   }
 
@@ -43,3 +44,4 @@ export class CustomersComponent implements OnInit {
     this.router.navigate(['add-customer']);
   }
 }
+

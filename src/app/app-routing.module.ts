@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
-import {CustomersComponent} from './customers/customers.component';
-import {RouterModule, Routes} from '@angular/router';
-import {AddCustomerComponent} from './add-customer/add-customer.component';
-import {EditCustomerComponent} from './edit-customer/edit-customer.component';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 
-
 const routes: Routes = [
-  { path: 'customers', component: CustomersComponent },
-  { path: 'add-customer', component: AddCustomerComponent },
-  { path: 'edit-customer', component: EditCustomerComponent },
+  { path: 'customers/:id', loadChildren: './customer/customer.module#CustomerModule' },
+  { path: 'customers', loadChildren: './customers/customers.module#CustomersModule'},
   { path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, { enableTracing: false}) ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
 

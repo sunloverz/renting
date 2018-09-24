@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {CustomerService} from '../customer.service';
+import { CustomerService } from '../core';
 
 @Component({
   selector: 'app-add-customer',

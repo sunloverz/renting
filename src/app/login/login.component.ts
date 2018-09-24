@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
-import {AuthenticationService} from '../auth.service';
+import {AuthenticationService} from '../core';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.invalidLogin = true;
-        console.log("Error occurred");
+        console.log('Error occurred');
       });
   }
 

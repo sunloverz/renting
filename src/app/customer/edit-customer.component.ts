@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CustomerService} from '../customer.service';
-import { Router } from '@angular/router';
-import {Customer} from '../customer';
+import {CustomerService} from '../core';
+import {Customer} from '../core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-edit-customer',
@@ -13,16 +14,21 @@ import {first} from 'rxjs/operators';
 export class EditCustomerComponent implements OnInit {
   customer: Customer;
   editForm: FormGroup;
+  customerId: String;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private customerService: CustomerService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private customerService: CustomerService) {}
 
   ngOnInit() {
-    const customerId = localStorage.getItem("editCustomerId");
-    if (!customerId) {
-      alert('Invalid action.');
-      this.router.navigate(['customers']);
-      return;
-    }
+    // const customerId = localStorage.getItem('editCustomerId');
+    // if (!customerId) {
+    //   alert('Invalid action.');
+    //   this.router.navigate(['customers']);
+    //   return;
+    // }
+    this.route.params.subscribe(params => {
+      this.customerId = params['id']; // --> Name must match wanted parameter
+    });
+    console.log(this.customerId);
 
     this.editForm = this.formBuilder.group({
       id: [],
@@ -30,7 +36,7 @@ export class EditCustomerComponent implements OnInit {
       name: ['', Validators.required],
       phone: ['', Validators.required]
     });
-    this.customerService.getCustomerById(+customerId)
+    this.customerService.getCustomerById(+this.customerId)
       .subscribe( data => {
         this.editForm.setValue(data);
       });
