@@ -17,7 +17,8 @@
           <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
         </div>
       </div>
-      <button class="btn btn-default">Login</button>
+      <button class="btn btn-default">Login</button><br>
+      <a routerLink="/account/register">Register a new account</a>
       <div *ngIf="invalidLogin" class="error">
         <div>Invalid credentials.</div>
       </div>
