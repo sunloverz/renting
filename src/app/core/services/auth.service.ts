@@ -29,4 +29,12 @@ export class AuthenticationService {
       error => console.log(error)
     );
   }
+
+  register(account) {
+    return this.tokenService.registerAccount({
+      login: account.email,
+      password: account.password,
+      passwordConfirmation: account.password
+    });
+  }
 }
