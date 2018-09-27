@@ -3,7 +3,7 @@
 </p>
 <div class="col-md-12">
   <h2> Customer Details</h2>
-  <button class="btn btn-danger" routerLink="/add-customer"> Add Customer</button>
+  <button class="btn btn-danger" routerLink="/customers/add-customer"> Add Customer</button>
   <table class="table table-striped">
     <thead>
     <tr>
@@ -36,7 +36,7 @@
       <td>{{customer.in_blacklist}}</td>
       <td>
         <button class="btn btn-danger" (click)="deleteCustomer(customer)"> Delete</button>
-        <a class="btn btn-danger" [routerLink]="[customer.id, 'edit']"> Edit </a>
+        <a class="btn btn-danger" [routerLink]="['/customer',customer.id, 'edit']"> Edit </a>
       </td>
     </tr>
     </tbody>
