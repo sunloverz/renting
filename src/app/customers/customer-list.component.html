@@ -1,13 +1,13 @@
-<p>
-  customer-list works!
-</p>
-<div class="col-md-12">
+
+  <div class="container-fluid">
   <h2> Customer Details</h2>
   <button class="btn btn-danger" routerLink="/customers/add-customer"> Add Customer</button>
-  <table class="table table-striped">
-    <thead>
+  </div>
+  <div class="container-fluid">
+  <table class="table table-sm table-striped mt-3">
+    <thead class = "thead-secondary">
     <tr>
-      <th class="hidden">Id</th>
+      <th style="visibility: hidden">Id</th>
       <th>Name</th>
       <th>Phone</th>
       <th>Email</th>
@@ -23,7 +23,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let customer of customers">
-      <td class="hidden">{{customer.id}}</td>
+      <td style="visibility: visible">{{customer.id}}</td>
       <td>{{customer.name}}</td>
       <td>{{customer.phone}}</td>
       <td>{{customer.email}}</td>
@@ -35,13 +35,14 @@
       <td>{{customer.issue_date}}</td>
       <td>{{customer.in_blacklist}}</td>
       <td>
-        <button class="btn btn-danger" (click)="deleteCustomer(customer)"> Delete</button>
+        <button class="btn btn-danger mb-3" (click)="deleteCustomer(customer)"> Delete</button>
         <a class="btn btn-danger" [routerLink]="['/customer',customer.id, 'edit']"> Edit </a>
       </td>
     </tr>
     </tbody>
   </table>
-</div>
+  </div>
+
 
 
 

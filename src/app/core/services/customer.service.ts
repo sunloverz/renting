@@ -24,10 +24,10 @@ export class CustomerService {
   }
 
   createCustomer(customer: Customer) {
-    return this.http.post(this.baseUrl, customer);
+    return this.http.post(this.baseUrl, {customer: customer});
   }
 
   updateCustomer(customer: Customer) {
-    return this.http.put(this.baseUrl + '/' + customer.id, customer);
+    return this.http.put(this.baseUrl + '/' + customer.id, {customer: customer});
   }
 }
