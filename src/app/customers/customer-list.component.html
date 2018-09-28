@@ -36,7 +36,7 @@
       <td>{{customer.in_blacklist}}</td>
       <td>
         <button class="btn btn-danger mb-3" (click)="deleteCustomer(customer)"> Delete</button>
-        <a class="btn btn-danger" [routerLink]="['/customer',customer.id, 'edit']"> Edit </a>
+        <a class="btn btn-danger" [routerLink]="[customer.id, 'edit']"> Edit </a>
       </td>
     </tr>
     </tbody>

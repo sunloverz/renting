@@ -7,10 +7,12 @@ import {CustomerComponent} from './customer.component';
 import {EditCustomerComponent} from './edit-customer.component';
 
 const routes: Routes = [
-  { path: '', component: CustomerListComponent },
-  { path: 'add-customer', component: AddCustomerComponent },
-  { path: ':id', component: CustomerComponent },
-  { path: ':id/edit', component: EditCustomerComponent }
+  { path: '', canActivate: [AuthGuard], children: [
+     { path: '', component: CustomerListComponent},
+     { path: 'add-customer', component: AddCustomerComponent },
+     { path: ':id', component: CustomerComponent },
+     { path: ':id/edit', component: EditCustomerComponent }
+   ]}
 ];
 
 @NgModule({
