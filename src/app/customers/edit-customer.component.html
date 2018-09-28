@@ -1,21 +1,61 @@
-<div class="col-md-6">
-  <h2 class="text-center">Edit Customer</h2>
-  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">Email address:</label>
-      <input type="email" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
-    </div>
 
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input formControlName="name" placeholder="Name" name="name" class="form-control" id="name">
-    </div>
+<div class="container mt-3 mb-3">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
 
-    <div class="form-group">
-      <label for="phone">Phone:</label>
-      <input formControlName="phone" placeholder="Phone" name="phone" class="form-control" id="phone">
     </div>
+    <div class="col-md-6 bg-light text-dark">
+      <h2 class="text-center">Edit Customer</h2>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+        </div>
 
-    <button class="btn btn-success">Update</button>
-  </form>
-</div>
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input formControlName="name" placeholder="Name" name="name" class="form-control" id="name">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input formControlName="phone" placeholder="Phone" name="phone" class="form-control" id="phone">
+        </div>
+
+        <div class="form-group">
+          <label for="discount">Discount:</label>
+          <input formControlName="discount" placeholder="Discount" name="discount" class="form-control" id="discount">
+        </div>
+
+        <div class="form-group">
+          <label for="birthdate">Birthdate:</label>
+          <input type="date" formControlName="birthdate" placeholder="Birthdate" name="birthdate" class="form-control" id="birthdate">
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input formControlName="address" placeholder="Address" name="address" class="form-control" id="address">
+        </div>
+
+        <div class="form-group">
+          <label for="passport_id">Passport id:</label>
+          <input formControlName="passport_id" placeholder="Passport id" name="passport_id" class="form-control" id="passport_id">
+        </div>
+
+        <div class="form-group">
+          <label for="issued_by">Passport issued by:</label>
+          <input formControlName="issued_by" placeholder="Passport issued by" name="issued_by" class="form-control" id="issued_by">
+        </div>
+
+        <div class="form-group">
+          <label for="issue_date">Passport issue date:</label>
+          <input type="date" formControlName="issue_date" placeholder="Passport issue date" name="issue_datey" class="form-control" id="issue_date">
+        </div>
+
+        <button class="btn btn-success">Update</button>
+      </form>
+    </div>
+    <div class="col col-lg-2">
+
+    </div>
+  </div>

@@ -39,7 +39,13 @@ export class EditCustomerComponent implements OnInit {
       id: [],
       email: ['', Validators.required],
       name: ['', Validators.required],
-      phone: ['', Validators.required]
+      phone: ['', Validators.required],
+      discount: ['', Validators.required],
+      birthdate: ['', Validators.required],
+      address: ['', Validators.required],
+      passport_id: ['', Validators.required],
+      issued_by: ['', Validators.required],
+      issue_date: ['', Validators.required]
     });
     this.customerService.getCustomerById(+this.customerId)
       .subscribe( data => {

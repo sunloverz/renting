@@ -18,7 +18,13 @@ export class AddCustomerComponent implements OnInit {
       id: [],
       email: ['', Validators.required],
       name: ['', Validators.required],
-      phone: ['', Validators.required]
+      phone: ['', Validators.required],
+      discount: ['', Validators.required],
+      birthdate: ['', Validators.required],
+      address: ['', Validators.required],
+      passport_id: ['', Validators.required],
+      issued_by: ['', Validators.required],
+      issue_date: ['', Validators.required]
     });
   }
 
@@ -26,7 +32,11 @@ export class AddCustomerComponent implements OnInit {
     this.userService.createCustomer(this.addForm.value)
       .subscribe( data => {
         this.router.navigate(['customers']);
+        },
+        error => {
+          alert(error);
       });
   }
 
 }
+
