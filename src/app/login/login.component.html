@@ -3,14 +3,21 @@
     <div class="col col-lg-2">
 
     </div>
+    <div class="col-12">
+      <div class="alert alert-danger" *ngIf="authenticationError">
+        <strong>Failed to sign in!</strong> Please check your credentials and try again.
+      </div>
+    </div>
+
     <div class="col-md-4 bg-light text-dark">
       <h2>Login</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group form-primary">
           <label for="email">Email address:</label>
           <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email address is required</div>
+          <div *ngIf="submitted && f.email.invalid" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
           </div>
         </div>
         <div class="form-group">
@@ -18,6 +25,7 @@
           <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
           </div>
         </div>
         <div class="form-group">
@@ -31,5 +39,4 @@
 
     </div>
   </div>
-
-
+</div>

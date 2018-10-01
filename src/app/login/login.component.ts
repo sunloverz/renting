@@ -12,7 +12,7 @@ import {AuthenticationService} from '../core';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
-  invalidLogin = false;
+  authenticationError: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,18 +32,19 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['customers']);
       },
       error => {
-        this.invalidLogin = true;
+        this.authenticationError = true;
         console.log('Error occurred');
       });
   }
 
-  ngOnInit() {
-    this.authService.logout();
+  get f() { return this.loginForm.controls; }
 
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
+    this.authService.logout();
   }
 }
 
