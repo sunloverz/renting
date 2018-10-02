@@ -5,37 +5,48 @@
     </div>
     <div class="col-md-4 bg-light text-dark">
       <h2>Register</h2>
-      <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <form #f="ngForm" (ngSubmit)="register()" novalidate>
+
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email Name is required</div>
+          <input class="form-control" type="email"  id="email" name="email"  [email]="true"  [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+                 [(ngModel)]="user.email" #email="ngModel" required />
+          <div *ngIf="f.submitted && !email.valid" class="invalid-feedback">
+            <div *ngIf="email.errors?.email"> Email is invalid</div>
+            <div *ngIf="email.errors?.required"> Email is required</div>
           </div>
         </div>
+
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+          <input type="password" class="form-control" id="password" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+                 [(ngModel)]="user.password" #password="ngModel"  name="password" minlength="6" required />
+          <div *ngIf="f.submitted && !password.valid" class="invalid-feedback">
+            <div *ngIf="password.errors?.required">Password is required</div>
+            <div *ngIf="password.errors?.minlength">Password must be at least 6 characters</div>
           </div>
         </div>
+
         <div class="form-group">
           <label for="passwordConfirmation">Confirm password</label>
-          <input type="text" formControlName="passwordConfirmation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }" />
-          <div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
-            <div *ngIf="f.passwordConfirmation.errors.required">Password confirmation is required</div>
+          <input type="password" id="passwordConfirmation" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && passwordConfirmation.invalid }"
+                 [(ngModel)]="user.password_confirmation" #passwordConfirmation="ngModel" name="passwordConfirmation" required />
+          <div *ngIf="passwordConfirmation.dirty && passwordConfirmation.invalid" class="invalid-feedback">
+            <div *ngIf="passwordConfirmation.errors?.required">Password confirmation is required</div>
           </div>
         </div>
+
         <div class="form-group">
           <button [disabled]="loading" class="btn btn-primary">Register</button>
           <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
         </div>
-      </form>
+
+    </form>
+
     </div>
     <div class="col col-lg-2">
 
     </div>
+  </div>
   </div>
