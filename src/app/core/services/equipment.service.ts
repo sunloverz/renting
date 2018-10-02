@@ -11,23 +11,23 @@ export class EquipmentService {
 
   constructor(public http: HttpClient) { }
 
-  getEquipment() {
+  getItems() {
     return this.http.get<Equipment[]>(this.baseUrl);
   }
 
-  deleteEquipment(id: number) {
+  delete(id: number) {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
-  getEquipmentById(id: number) {
+  getItemById(id: number) {
     return this.http.get<Equipment>(this.baseUrl + '/' + id);
   }
 
-  createEquipment(equipment: Equipment) {
+  create(equipment: Equipment) {
     return this.http.post(this.baseUrl, {equipment: equipment});
   }
 
-  updateEquipment(equipment: Equipment) {
+  update(equipment: Equipment) {
     return this.http.put(this.baseUrl + '/' + equipment.id, {equipment: equipment});
   }
 }
