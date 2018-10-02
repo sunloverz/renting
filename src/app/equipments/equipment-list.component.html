@@ -1,3 +1,40 @@
-<p>
-  equipment-list works!
-</p>
+
+<div class="container-fluid">
+  <h2> Equipments </h2>
+  <button class="btn btn-danger" routerLink="/equipments/add-equipment"> Add Equipment</button>
+</div>
+<div class="container-fluid">
+  <table class="table table-sm table-striped mt-3">
+    <thead class = "thead-secondary">
+    <tr>
+      <th style="visibility: hidden">Id</th>
+      <th>Name</th>
+      <th>Vendor Code</th>
+      <th>Serial Number</th>
+      <th>Size</th>
+      <th>Price per hour</th>
+      <th>Price per day</th>
+      <th>Price per month</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let equipment of equipments">
+      <td style="visibility: visible">{{equipment.id}}</td>
+      <td>{{equipment.name}}</td>
+      <td>{{equipment.vendor_code}}</td>
+      <td>{{equipment.serial_number}}</td>
+      <td>{{equipment.size}}</td>
+      <td>{{equipment.price_per_hour}}</td>
+      <td>{{equipment.price_per_day}}</td>
+      <td>{{equipment.price_per_month}}</td>
+      <td>
+        <button class="btn btn-danger mb-3" (click)="deleteEquipment(equipment)"> Delete</button>
+        <a class="btn btn-danger" [routerLink]="[equipment.id, 'edit']"> Edit </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
