@@ -1,4 +1,39 @@
-<p>
-  rent works!
-  <a class="nav-link" routerLink="/dashboard">Start Renting</a>
-</p>
+<div class="container-fluid">
+  <h2> Rents </h2>
+  <button class="btn btn-danger" routerLink="/dashboard"> Start Renting</button>
+</div>
+<div class="container-fluid">
+  <table class="table table-sm table-striped mt-3">
+    <thead class = "thead-secondary">
+    <tr>
+      <th style="visibility: hidden">Id</th>
+      <th>Customer</th>
+      <th>Equipment</th>
+      <th>Status</th>
+      <th>Rent Typer</th>
+      <th>Start date:</th>
+      <th>End date:</th>
+      <th>Price:</th>
+      <th>Paid:</th>
+      <th>Discount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rent of rents">
+      <td style="visibility: visible">{{rent.id}}</td>
+      <td>{{rent.customer_id}}</td>
+      <td>{{rent.status}}</td>
+      <td>{{rent.rent_type}}</td>
+      <td>{{rent.start_date}}</td>
+      <td>{{rent.end_date}}</td>
+      <td>{{rent.price}}</td>
+      <td>{{rent.paid}}</td>
+      <td>{{rent.discount}}</td>
+      <td>
+        <button class="btn btn-danger mb-3" (click)="deleteRent(rent)"> Delete</button>
+        <a class="btn btn-danger" [routerLink]="[rent.id, 'edit']"> Edit </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
