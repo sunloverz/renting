@@ -19,7 +19,7 @@ export class EquipmentService {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
-  getItemById(id: number) {
+  getEquipmentById(id: number) {
     return this.http.get<Equipment>(this.baseUrl + '/' + id);
   }
 
@@ -27,7 +27,7 @@ export class EquipmentService {
     return this.http.post(this.baseUrl, {equipment: equipment});
   }
 
-  update(equipment: Equipment) {
+  updateEquipment(equipment: Equipment) {
     return this.http.put(this.baseUrl + '/' + equipment.id, {equipment: equipment});
   }
 }
