@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CartService, Customer, CustomerService, RentService} from '../core';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-rent',
@@ -14,7 +13,7 @@ export class NewRentComponent implements OnInit {
   statuses = ['rented', 'reserved', 'expired'];
   rent_types = ['hour', 'day', 'month'];
   customers: Customer[];
-  cartEquipments: number[];
+  cartEquipmentIds: number[];
 
 
   constructor(private formBuilder: FormBuilder,
@@ -40,8 +39,7 @@ export class NewRentComponent implements OnInit {
 
   getCartEquipmentIds(): void {
     const equipments = this.cartService.all();
-    this.cartEquipments = equipments.map((equipment) => equipment.id);
-    console.log(this.cartEquipments);
+    this.cartEquipmentIds = equipments.map((equipment) => equipment.id);
   }
 
   getCustomers(): void {
@@ -53,9 +51,10 @@ export class NewRentComponent implements OnInit {
 
 
   onSubmit() {
-    this.rentService.create(this.addForm.value)
+    this.rentService.create({equipment_ids: this.cartEquipmentIds, ...this.addForm.value})
       .subscribe( data => {
           this.router.navigate(['rents']);
+          console.log(data);
         },
         error => {
           alert(error);
