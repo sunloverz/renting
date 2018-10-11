@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from './core/services';
+import {AuthenticationService, CartService} from './core/services';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,7 +10,9 @@ import {Router} from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'renting';
 
-  constructor( private authService: AuthenticationService, private router: Router) {}
+  constructor( private authService: AuthenticationService,
+               private cartService: CartService,
+               private router: Router) {}
 
   ngOnInit() {
   }
@@ -21,6 +23,11 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    sessionStorage.removeItem('current-cart');
     this.router.navigate(['login']);
+  }
+
+  cartItemsCount(): number {
+    return this.cartService.count();
   }
 }

@@ -13,7 +13,8 @@ import {EquipmentService} from '../core';
 export class EquipmentListComponent implements OnInit {
   equipments: Equipment[];
 
-  constructor(private equipmentService: EquipmentService, private router: Router) { }
+  constructor(private equipmentService: EquipmentService,
+              private router: Router) { }
 
   ngOnInit() {
     this.getEquipments();
@@ -23,7 +24,6 @@ export class EquipmentListComponent implements OnInit {
     this.equipmentService.getItems()
       .subscribe( data => {
         this.equipments = data;
-        console.log(this.equipments);
       });
   }
 
