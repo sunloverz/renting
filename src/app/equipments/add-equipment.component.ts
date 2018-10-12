@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {EquipmentService} from '../core';
+import {STATUSES} from '../shared';
 
 @Component({
   selector: 'app-add-equipment',
@@ -10,13 +11,14 @@ import {EquipmentService} from '../core';
 })
 export class AddEquipmentComponent implements OnInit {
   addForm: FormGroup;
+  statuses = STATUSES;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private equipmentService: EquipmentService) { }
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       name: ['', Validators.required],
-      state: ['', Validators.required],
+      status: ['', Validators.required],
       serial_number: ['', Validators.required],
       vendor_code: ['', Validators.required],
       price_per_hour: ['', Validators.required],

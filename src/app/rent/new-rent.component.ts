@@ -34,6 +34,7 @@ export class NewRentComponent implements OnInit {
       paid: ['', Validators.required],
       discount: ['', Validators.required],
       customer_id: ['', Validators.required],
+      duration: ['', Validators.required]
     });
   }
 

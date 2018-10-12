@@ -12,7 +12,10 @@
         </div>
 
         <div class="form-group">
-          <input type="text" formControlName="state" placeholder="State" name="state" class="form-control" id="state">
+          <label for="status">Status</label>
+          <select formControlName="status" id="status" class="form-control">
+            <option [value]="status" *ngFor="let status of statuses">{{status}}</option>
+          </select>
         </div>
 
         <div class="form-group">

@@ -1,7 +1,7 @@
 export class Equipment {
   id:number;
   name:string;
-  state:string;
+  status:string;
   serial_number:string;
   vendor_code:string;
   price_per_hour:number;

@@ -8,5 +8,5 @@ export class Rent {
   paid: number;
   discount: number;
   customer_id: number;
-
+  duration: number;
 }

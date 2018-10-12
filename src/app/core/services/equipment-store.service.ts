@@ -19,7 +19,8 @@ export class EquipmentStoreService {
   }
 
   updateThisStore(equipments: Equipment[]) {
-    this.equipments = equipments;
+    // this.equipments = equipments;
+    this.equipments = equipments.filter(c => c.status !== 'rented');
     this.updateStore();
   }
 
