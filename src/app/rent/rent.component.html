@@ -21,7 +21,7 @@
     <tbody>
     <tr *ngFor="let rent of rents">
       <td style="visibility: visible">{{rent.id}}</td>
-      <td>{{rent.customer_id}}</td>
+      <td><a [routerLink]="['/customers', rent.customer_id, 'edit']"> {{rent.customer.name}} </a></td>
       <td>{{rent.status}}</td>
       <td>{{rent.rent_type}}</td>
       <td>{{rent.start_date}}</td>
