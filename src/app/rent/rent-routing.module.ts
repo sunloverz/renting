@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import {AuthGuardService as AuthGuard} from '../core/services';
 import {RentComponent} from './rent.component';
 import {NewRentComponent} from './new-rent.component';
+import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
   { path: '', canActivate: [AuthGuard], children: [
       { path: '', component: RentComponent},
-      { path: 'new', component: NewRentComponent}
+      { path: 'new', component: NewRentComponent},
+      { path: 'dashboard', component: DashboardComponent}
       ]
   }
 ];

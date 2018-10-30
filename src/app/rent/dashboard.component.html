@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-  <h2> Dashboard </h2>
+  <h2> Choose equipments </h2>
 </div>
 <div class="container-fluid">
   <table class="table table-sm table-striped mt-3">
@@ -28,11 +28,12 @@
       <td>{{equipment.price_per_day}}</td>
       <td>{{equipment.price_per_month}}</td>
       <td>
-        <button class="btn btn-danger" (click)="addToCart(equipment)"> Add to cart </button>
+        <button class="btn btn-danger" (click)="addToCart(equipment)"> <i class="fa fa-plus"></i> Add </button>
       </td>
     </tr>
     </tbody>
   </table>
+  <button class="btn btn-danger float-right" routerLink="/rents/new">Continue</button>
 </div>
 
 
