@@ -15,7 +15,6 @@ export class NewRentComponent implements OnInit {
   customers: Customer[];
   cartEquipmentIds: number[];
 
-
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private rentService: RentService,
@@ -34,7 +33,8 @@ export class NewRentComponent implements OnInit {
       paid: ['', Validators.required],
       discount: ['', Validators.required],
       customer_id: ['', Validators.required],
-      duration: ['', Validators.required]
+      duration: ['', Validators.required],
+      date_range: ['', Validators.required]
     });
   }
 
