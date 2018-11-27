@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {CartService, Customer, CustomerService, RentService} from '../core';
+import {CartService, Customer, CustomerService, RentService, Equipment, EquipmentStoreService, EquipmentService} from '../core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
+import { DaterangePickerComponent } from 'ng2-daterangepicker';
 
 @Component({
   selector: 'app-new-rent',
@@ -9,38 +12,63 @@ import {CartService, Customer, CustomerService, RentService} from '../core';
   styleUrls: ['./new-rent.component.css']
 })
 export class NewRentComponent implements OnInit {
+
+  @ViewChild(DaterangePickerComponent)
+  private picker: DaterangePickerComponent;
+
   addForm: FormGroup;
-  statuses = ['rented', 'reserved', 'expired'];
-  rent_types = ['hour', 'day', 'month'];
   customers: Customer[];
-  cartEquipmentIds: number[];
+  equipments: Equipment[];
+  rentedEqiupments: Equipment[] = [];
+
+  rentedDays = 1;
+  subtotal: number;
+  discount: number;
+  total: number;
+
+  public daterange: any = {};
+
+  public options: any = {
+    locale: { format: 'YYYY-MM-DD hh:mm A' },
+    timePicker: true,
+    alwaysShowCalendars: false
+  };
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private rentService: RentService,
               private customerService: CustomerService,
-              private cartService: CartService) { }
+              private equipmentService: EquipmentService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getCustomers();
-    this.getCartEquipmentIds();
     this.addForm = this.formBuilder.group({
-      status: [this.statuses[0], Validators.required],
-      rent_type: [this.rent_types[0], Validators.required],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
       price: ['', Validators.required],
       paid: ['', Validators.required],
       discount: ['', Validators.required],
-      customer_id: ['', Validators.required],
-      duration: ['', Validators.required],
-      date_range: ['', Validators.required]
+      customer_id: ['', Validators.required]
     });
+    this.getEquipments();
   }
 
-  getCartEquipmentIds(): void {
-    const equipments = this.cartService.all();
-    this.cartEquipmentIds = equipments.map((equipment) => equipment.id);
+  rentEquipment(equipment: Equipment): void {
+    this.rentedEqiupments.push(equipment);
+    equipment.status = 'rented';
+    this.calculatePrice();
+  }
+
+  deleteEquipment(equipment: Equipment): void {
+    this.rentedEqiupments.splice(this.rentedEqiupments.indexOf(equipment), 1);
+    equipment.status = 'available';
+    this.calculatePrice();
+  }
+
+  getEquipments(): void {
+    this.equipmentService.getItems()
+      .subscribe( data => {
+        this.equipments = data;
+      });
   }
 
   getCustomers(): void {
@@ -50,9 +78,44 @@ export class NewRentComponent implements OnInit {
       });
   }
 
+  onChange(customer_id): void {
+    const customer = this.customers.find(c => c.id === Number(customer_id));
+    this.addForm.patchValue({
+      discount: customer.discount,
+    });
+  }
+
+  public selectedDate(value: any) {
+    this.rentedDays = value.end.diff(value.start, 'days');
+    this.calculatePrice();
+  }
+
+  calculatePrice(): void {
+    const sum = this.rentedEqiupments.map(v => v.price_per_day).reduce(( a, b) => a + b);
+    this.subtotal = this.rentedDays * sum;
+    this.discount = (this.subtotal * Number(this.addForm.value.discount)) / 100;
+    this.total = this.subtotal - this.discount;
+  }
+
+  openSm(content) {
+    this.modalService.open(content, { size: 'sm' });
+  }
+
+  openLg(content) {
+    this.modalService.open(content, { size: 'lg' });
+  }
 
   onSubmit() {
-    this.rentService.create({equipment_ids: this.cartEquipmentIds, ...this.addForm.value})
+    const equipmentIds = this.rentedEqiupments.map((equipment) => equipment.id);
+    const params = { start_date: this.picker.datePicker.startDate.toISOString(),
+                     end_date: this.picker.datePicker.endDate.toISOString(),
+                     equipment_ids: equipmentIds,
+                     status: 'rented',
+                     subtotal_price: this.subtotal,
+                     total_price: this.total,
+                     ...this.addForm.value };
+
+    this.rentService.create(params)
       .subscribe( data => {
           this.router.navigate(['rents']);
           console.log(data);

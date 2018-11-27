@@ -1,4 +1,5 @@
 import {Customer} from './customer';
+import { Equipment } from './equipment';
 
 export class Rent {
   id: number;
@@ -11,5 +12,8 @@ export class Rent {
   discount: number;
   customer_id: number;
   duration: number;
+  total_price: number;
+  subtotal_price: number;
   customer: Customer;
+  equipments: Equipment[];
 }

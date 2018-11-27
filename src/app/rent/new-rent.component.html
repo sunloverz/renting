@@ -1,63 +1,122 @@
+
 <div class="container mt-3 mb-3">
   <div class="row justify-content-md-center">
     <div class="col col-lg-2">
 
     </div>
-    <div class="col-md-6 bg-light text-dark">
+    <div class="col-md-12 bg-light text-dark">
       <h2 class="text-center">Create Rent</h2>
       <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
         <div class="form-group">
-          <label for="customer_id">Customer</label>
-          <select formControlName="customer_id" id="customer_id" class="form-control">
+          <label for="customer_id">Customer:</label>
+          <select (change)="onChange($event.target.value)" formControlName="customer_id" id="customer_id" class="col-md-6 col-sm-6 form-control">
             <option [value]="customer.id" *ngFor="let customer of customers">{{customer.name}}</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="status">Status</label>
-          <select formControlName="status" id="status" class="form-control">
-            <option [value]="status" *ngFor="let status of statuses">{{status}}</option>
-          </select>
+          <label for="date_range">Rental period:</label>
+          <input type="text" name="date_range" id="date_range" daterangepicker [options]="options"  (selected)="selectedDate($event)" class="col-md-6 col-sm-6 form-control">
         </div>
-
-        <div class="form-group">
-          <label for="duration">Amount of time</label>
-          <input type="number" formControlName="duration" placeholder="Amount of time" name="duration" class="form-control" id="duration">
-        </div>
-
-        <div class="form-group">
-          <label for="rent_type">Rent Type</label>
-          <select formControlName="rent_type" id="rent_type" class="form-control">
-            <option [value]="rent_type" *ngFor="let rent_type of rent_types">{{rent_type}}</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="end_date">End date:</label>
-          <input type="date" formControlName="end_date" placeholder="End date" name="end_date" class="form-control" id="end_date">
-        </div>
-
-        <div class="form-group">
-          <label for="price">Price:</label>
-          <input type="number" formControlName="price" placeholder="Price" name="price" class="form-control" id="price">
-        </div>
-
-        <div class="form-group">
-          <label for="paid">Paid:</label>
-          <input type="number" formControlName="paid" placeholder="Paid sum" name="paid" class="form-control" id="paid">
-        </div>
-
 
         <div class="form-group">
           <label for="discount">Discount:</label>
-          <input type="number" formControlName="discount" placeholder="Discount" name="discount" class="form-control" id="discount">
-        </div>
+          <input type="number" formControlName="discount" placeholder="Discount" name="discount" class="col-md-6 col-sm-6 form-control" id="discount">
+        </div>   
 
-        <button class="btn btn-success">Save</button>
+        <div class="form-group">
+          <label for="paid">Paid sum:</label>
+          <input type="number" formControlName="paid" name="paid" class="col-md-6 col-sm-6 form-control" id="paid">
+        </div> 
+
+        <div class="form-group">
+          <p> Subtotal: {{ subtotal }}</p>
+          <p> Discount: {{ discount }}</p>
+          <p> Total: {{ total }}</p>
+             
+        </div>
+     
+        <button class="btn btn-success" type="submit">Rent</button>
+        <button class="btn btn-primary" type="button">Reserve</button>
       </form>
     </div>
-    <div class="col col-lg-2">
 
+    <div class="col col-lg-2">
+    </div>
+
+    <div class="container-fluid">
+      <table class="table table-sm table-striped mt-3">
+        <thead class = "thead-secondary">
+        <tr>
+          <th style="visibility: hidden">Id</th>
+          <th>Name</th>
+          <th>Vendor Code</th>
+          <th>Serial Number</th>
+          <th>Size</th>
+          <th>Price per day</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let equipment of rentedEqiupments">
+          <td style="visibility: visible">{{equipment.id}}</td>
+          <td>{{equipment.name}}</td>
+          <td>{{equipment.vendor_code}}</td>
+          <td>{{equipment.serial_number}}</td>
+          <td>{{equipment.size}}</td>
+          <td>{{equipment.price_per_day}}</td>
+          <td>
+            <button class="btn btn-danger mb-3" (click)="deleteEquipment(equipment)"> Delete</button> 
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+
+  <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Choose equipments </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>    
+      <div class="modal-body">
+        
+        <div class="container-fluid">
+          <table class="table table-sm table-striped mt-3">
+            <thead class = "thead-secondary">
+            <tr>
+              <th style="visibility: hidden">Id</th>
+              <th>Name</th>
+              <th>Vendor Code</th>
+              <th>Serial Number</th>
+              <th>Size</th>
+              <th>Price per day</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let equipment of equipments">
+              <td style="visibility: visible">{{equipment.id}}</td>
+              <td>{{equipment.name}}</td>
+              <td>{{equipment.vendor_code}}</td>
+              <td>{{equipment.serial_number}}</td>
+              <td>{{equipment.size}}</td>
+              <td>{{equipment.price_per_day}}</td>
+              <td>
+                <button class="btn btn-danger" [disabled]="equipment.status === 'rented'" (click)="rentEquipment(equipment)"> <i class="fa fa-plus"></i> Add </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      </div>
+    </ng-template>     
+
+  <button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Add Equipment</button>
+

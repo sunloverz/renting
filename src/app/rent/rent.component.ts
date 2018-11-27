@@ -15,14 +15,18 @@ export class RentComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.getRents();
+    this.fetchRents();
   }
 
-  getRents(): void {
+  fetchRents(): void {
     this.rentService.getItems()
       .subscribe( data => {
         this.rents = data;
-      });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   deleteRent(rent: Rent): void {

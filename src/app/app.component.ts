@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
   title = 'renting';
 
   constructor( private authService: AuthenticationService,
-               private cartService: CartService,
                private router: Router) {}
 
   ngOnInit() {
@@ -25,9 +24,5 @@ export class AppComponent implements OnInit {
     this.authService.logout();
     sessionStorage.removeItem('current-cart');
     this.router.navigate(['login']);
-  }
-
-  cartItemsCount(): number {
-    return this.cartService.count();
   }
 }

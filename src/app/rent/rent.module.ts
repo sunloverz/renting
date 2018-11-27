@@ -4,15 +4,18 @@ import { CommonModule } from '@angular/common';
 import { RentRoutingModule } from './rent-routing.module';
 import { RentComponent } from './rent.component';
 import { NewRentComponent } from './new-rent.component';
-import { DashboardComponent } from './dashboard.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { Daterangepicker } from 'ng2-daterangepicker';
+import { EditRentComponent } from './edit-rent.component';
+import { EquipmentsModalComponent } from './equipments-modal.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RentRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Daterangepicker
   ],
-  declarations: [RentComponent, NewRentComponent, DashboardComponent]
+  declarations: [RentComponent, NewRentComponent, EditRentComponent, EquipmentsModalComponent]
 })
 export class RentModule { }

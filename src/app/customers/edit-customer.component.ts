@@ -31,7 +31,7 @@ export class EditCustomerComponent implements OnInit {
     //   return;
     // }
     this.route.params.subscribe(params => {
-      this.customerId = params['id']; // --> Name must match wanted parameter
+      this.customerId = params['id'];
     });
     console.log(this.customerId);
 

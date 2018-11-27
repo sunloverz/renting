@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AngularTokenModule} from 'angular-token';
 import { LoginComponent } from './login/login.component';
 import {CoreModule} from './core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {CoreModule} from './core';
       deleteAccountPath:       'auth',
       updatePasswordPath:      'auth',
       resetPasswordPath:       'auth/password'
-    })
+    }),
+    NgbModule
   ],
   providers: [AngularTokenModule],
   bootstrap: [AppComponent]
