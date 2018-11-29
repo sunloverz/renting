@@ -11,19 +11,15 @@ import {STATUSES} from '../shared';
 })
 export class AddEquipmentComponent implements OnInit {
   addForm: FormGroup;
-  statuses = STATUSES;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private equipmentService: EquipmentService) { }
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       name: ['', Validators.required],
-      status: ['', Validators.required],
       serial_number: ['', Validators.required],
       vendor_code: ['', Validators.required],
-      price_per_hour: ['', Validators.required],
       price_per_day: ['', Validators.required],
-      price_per_month: ['', Validators.required],
     });
   }
 

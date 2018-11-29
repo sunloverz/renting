@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {AuthGuardService as AuthGuard} from '../core/services';
+import {AuthGuardService as AuthGuard} from '../core';
 import {RentComponent} from './rent.component';
 import {NewRentComponent} from './new-rent.component';
 import { EditRentComponent } from './edit-rent.component';

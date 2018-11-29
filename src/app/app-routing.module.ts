@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'account', loadChildren: './account/account.module#AccountModule'},
   { path: 'equipments', loadChildren: './equipments/equipments.module#EquipmentsModule'},
   { path: 'cart', loadChildren: './cart/cart.module#CartModule' },
+  { path: 'reservations', loadChildren: './reservations/reservations.module#ReservationsModule'},
   { path: 'login', component: LoginComponent}
 ];
 

@@ -124,4 +124,24 @@ export class NewRentComponent implements OnInit {
           alert(error);
         });
   }
+
+  onReserve() {
+    const equipmentIds = this.rentedEqiupments.map((equipment) => equipment.id);
+    const params = { start_date: this.picker.datePicker.startDate.toISOString(),
+                     end_date: this.picker.datePicker.endDate.toISOString(),
+                     equipment_ids: equipmentIds,
+                     status: 'reserved',
+                     subtotal_price: this.subtotal,
+                     total_price: this.total,
+                     ...this.addForm.value };
+
+    this.rentService.create(params)
+      .subscribe( data => {
+          this.router.navigate(['rents']);
+          console.log(data);
+        },
+        error => {
+          alert(error);
+        });
+  }
 }
