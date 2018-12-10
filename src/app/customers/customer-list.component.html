@@ -1,63 +1,59 @@
 
-  <div class="container-fluid">
+<div class="container-fluid">
   <h2> Customer Details</h2>
   <button class="btn btn-danger" routerLink="/customers/add-customer"> Add Customer</button>
-  </div>
-  <div class="container-fluid">
- <p-table #dt [value]="customers" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'phone']" >
+</div>
+<div class="container-fluid">
+  <p-table #dt [value]="customers" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'phone']" >
     <ng-template pTemplate="caption">
-        <div style="text-align: right">        
-            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-        </div>
+      <div style="text-align: right">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </div>
     </ng-template>
     <ng-template pTemplate="header">
-        <tr>
-                        <th style="width: 4em">Id</th>
-
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th>Discount</th>
-      <th>Birthdate</th>
-      <th>Address</th>
-      <th>Passport id</th>
-      <th>Passport issued by</th>
-      <th>Passport issue date</th>
-      <th>In blacklist</th>
-      <th style="width: 8em">Actions</th>    
-      
-        </tr>
+      <tr>
+        <th style="width: 4em">Id</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Discount</th>
+        <th>Birthdate</th>
+        <th>Address</th>
+        <th>Passport id</th>
+        <th>Passport issued by</th>
+        <th>Passport issue date</th>
+        <th>In blacklist</th>
+        <th style="width: 8em">Actions</th>
+      </tr>
     </ng-template>
     <ng-template pTemplate="body" let-customer>
       <tr>
-      <td>{{customer.id}}</td>
-      <td>{{customer.name}}</td>
-      <td>{{customer.phone}}</td>
-      <td>{{customer.email}}</td>
-      <td>{{customer.discount}}</td>
-      <td>{{customer.birthdate | date: 'MMM d, y, h:mm a'}}</td>
-      <td>{{customer.address}}</td>
-      <td>{{customer.passport_id}}</td>
-      <td>{{customer.issued_by}}</td>
-      <td>{{customer.issue_date | date: 'MMM d, y, h:mm a'}}</td>
-      <td>{{customer.in_blacklist}}</td>
-       <td>
-
-         <div class="btn-group flex-btn-group-container">
-          <button [routerLink]="[customer.id, 'edit']" class="btn btn-primary btn-sm"> 
-            <span class="fas fa-pencil-alt"></span> 
-          </button>
-          <button (click)="deleteCustomer(customer)" class="btn btn-danger btn-sm"> 
-            <span class="fas fa-times"></span>   
-          </button>
-         
-         </div>
-       </td>
-      </tr>   
+        <td>{{customer.id}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.phone}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.discount}}</td>
+        <td>{{customer.birthdate | date: 'MMM d, y, h:mm a'}}</td>
+        <td>{{customer.address}}</td>
+        <td>{{customer.passport_id}}</td>
+        <td>{{customer.issued_by}}</td>
+        <td>{{customer.issue_date | date: 'MMM d, y, h:mm a'}}</td>
+        <td>{{customer.in_blacklist}}</td>
+        <td>
+          <div class="btn-group flex-btn-group-container">
+            <button [routerLink]="[customer.id, 'edit']" class="btn btn-primary btn-sm">
+              <span class="fas fa-pencil-alt"></span>
+            </button>
+            <button (click)="deleteCustomer(customer)" class="btn btn-danger btn-sm">
+              <span class="fas fa-times"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
     </ng-template>
-</p-table>
+  </p-table>
 
-  </div>
+</div>
 
 
