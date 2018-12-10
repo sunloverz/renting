@@ -1,40 +1,53 @@
 
 <div class="container-fluid">
-  <h2> Equipments </h2>
-  <button class="btn btn-danger" routerLink="/equipments/add-equipment"> Add Equipment</button>
+  <div class="row">
+     <div class="col-lg-12"> 
+      <h2> Equipments </h2>
+      <button class="btn btn-danger float-right" routerLink="/equipments/add-equipment"> Add Equipment</button>
+     </div>
+  </div>
+
+  <div class="row">
+   <div class="col-lg-12">
+<p-table #dt [columns]="cols" [value]="equipments" sortMode="multiple"  [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'vendor_code', 'serial_number']">
+    <ng-template pTemplate="caption">
+        <div style="text-align: right">        
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+             <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+              <div class="btn-group flex-btn-group-container">
+                <button [routerLink]="[rowData.id, 'edit']" class="btn btn-primary btn-sm"> 
+                  <span class="fas fa-pencil-alt"></span> 
+                </button>
+                <button (click)="deleteEquipment(rowData)" class="btn btn-danger btn-sm"> 
+                  <span class="fas fa-times"></span>   
+                </button>
+              </div>
+           </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+   </div>
+  </div>
 </div>
-<div class="container-fluid">
-  <table class="table table-sm table-striped mt-3">
-    <thead class = "thead-secondary">
-    <tr>
-      <th style="visibility: hidden">Id</th>
-      <th>Name</th>
-      <th>Vendor Code</th>
-      <th>Serial Number</th>
-      <th>Size</th>
-      <th>Price per hour</th>
-      <th>Price per day</th>
-      <th>Price per month</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let equipment of equipments">
-      <td style="visibility: visible">{{equipment.id}}</td>
-      <td>{{equipment.name}}</td>
-      <td>{{equipment.vendor_code}}</td>
-      <td>{{equipment.serial_number}}</td>
-      <td>{{equipment.size}}</td>
-      <td>{{equipment.price_per_hour}}</td>
-      <td>{{equipment.price_per_day}}</td>
-      <td>{{equipment.price_per_month}}</td>
-      <td>
-        <button class="btn btn-danger mb-3" (click)="deleteEquipment(equipment)"> Delete</button>
-        <a class="btn btn-danger" [routerLink]="[equipment.id, 'edit']"> Edit </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+
+
 
 

@@ -1,35 +1,88 @@
 <div class="container-fluid">
-  <h2> Rents </h2>
-  <button class="btn btn-danger" routerLink="new"> <i class="fa fa-plus"></i> New </button>
-</div>
-<div class="container-fluid">
-  <table class="table table-sm table-striped mt-3">
-    <thead class = "thead-secondary">
-    <tr>
-      <th style="visibility: hidden">Id</th>
-      <th>Customer</th>
-      <th>Status</th>
-      <th>Start date:</th>
-      <th>End date:</th>
-      <th>Price:</th>
-      <th>Paid:</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let rent of rents">
-      <td style="visibility: visible">{{rent.id}}</td>
-      <td><a [routerLink]="['/customers', rent.customer_id, 'edit']"> {{rent.customer.name}} </a></td>
-      <td>{{rent.status}}</td>
-      <td>{{rent.start_date | date: 'MMM d, y, h:mm a'}}</td>
-      <td>{{rent.end_date | date: 'MMM d, y, h:mm a'}}</td>
-      <td>{{rent.price}}</td>
-      <td>{{rent.paid}}</td>
-      <td>
-        <button class="btn btn-danger mb-3" (click)="deleteRent(rent)"> Delete</button>
-        <a class="btn btn-danger" [routerLink]="[rent.id, 'edit']"> Edit </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  
+  <div class="row">
+    <div class="col-lg-12">
+      <h2> Rents </h2>
+      <button class="btn btn-primary float-right" routerLink="new"> <i class="fa fa-plus"></i> Add a new rent</button>
+    
+     <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-primary">
+       <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+      </label>
+      <label class="btn btn-primary">
+       <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+      </label>
+      <label class="btn btn-primary">
+       <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+      </label>
+     </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+   <div class="col-lg-12">
+ <p-table #dt [value]="rents" [paginator]="true" [rows]="15" [globalFilterFields]="['id','customer.name', 'status']" sortMode="multiple" >
+      <ng-template pTemplate="caption">
+        <div style="text-align: right">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th [pSortableColumn]="'id'" style="width: 4em">
+            Id
+            <p-sortIcon [field]="'id'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'customer.name'">
+            Customer
+            <p-sortIcon [field]="'customer.name'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'status'">
+            Status
+            <p-sortIcon [field]="'status'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'start_date'">
+            Start date
+            <p-sortIcon [field]="'start_date'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'end_date'">
+            End date
+            <p-sortIcon [field]="'end_date'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'price_per_day'">
+            Price
+            <p-sortIcon [field]="'price_per_day'"></p-sortIcon>
+          </th>
+          <th>Paid</th>
+          <th style="width: 8em">Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rent>
+        <tr>
+          <td>{{rent.id}}</td>
+          <td><a [routerLink]="['/customers', rent.customer_id, 'edit']"> {{rent.customer.name}} </a></td>
+          <td>{{rent.status}}</td>
+          <td>{{rent.start_date | date: 'MMM d, y, h:mm a'}}</td>
+          <td>{{rent.end_date | date: 'MMM d, y, h:mm a'}}</td>
+          <td>{{rent.price}}</td>
+          <td>{{rent.paid}}</td>
+          <td>
+
+            <div class="btn-group flex-btn-group-container">
+              <button [routerLink]="[rent.id, 'edit']" class="btn btn-primary btn-sm">
+                <span class="fas fa-pencil-alt"></span>
+              </button>
+              <button (click)="deleteRent(rent)" class="btn btn-danger btn-sm">
+                <span class="fas fa-times"></span>
+              </button>
+
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+   </div>
+  </div>
 </div>

@@ -2,8 +2,8 @@
 <div class="container mt-3 mb-3">
   <div class="row justify-content-md-center">
     <div class="col col-lg-2">
-
     </div>
+
     <div class="col-md-12 bg-light text-dark">
       <h2 class="text-center">Create Rent</h2>
       <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
@@ -23,20 +23,20 @@
         <div class="form-group">
           <label for="discount">Discount:</label>
           <input type="number" formControlName="discount" placeholder="Discount" name="discount" class="col-md-6 col-sm-6 form-control" id="discount">
-        </div>   
+        </div>
 
         <div class="form-group">
           <label for="paid">Paid sum:</label>
           <input type="number" formControlName="paid" name="paid" class="col-md-6 col-sm-6 form-control" id="paid">
-        </div> 
+        </div>
 
         <div class="form-group">
           <p> Subtotal: {{ subtotal }}</p>
           <p> Discount: {{ discount }}</p>
           <p> Total: {{ total }}</p>
-             
+
         </div>
-     
+
         <button class="btn btn-success" type="submit">Rent</button>
         <button class="btn btn-primary" type="button" (click)="onReserve()">Reserve</button>
       </form>
@@ -45,78 +45,94 @@
     <div class="col col-lg-2">
     </div>
 
-    <div class="container-fluid">
-      <table class="table table-sm table-striped mt-3">
-        <thead class = "thead-secondary">
-        <tr>
-          <th style="visibility: hidden">Id</th>
-          <th>Name</th>
-          <th>Vendor Code</th>
-          <th>Serial Number</th>
-          <th>Size</th>
-          <th>Price per day</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let equipment of rentedEqiupments">
-          <td style="visibility: visible">{{equipment.id}}</td>
-          <td>{{equipment.name}}</td>
-          <td>{{equipment.vendor_code}}</td>
-          <td>{{equipment.serial_number}}</td>
-          <td>{{equipment.size}}</td>
-          <td>{{equipment.price_per_day}}</td>
-          <td>
-            <button class="btn btn-danger mb-3" (click)="deleteEquipment(equipment)"> Delete</button> 
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="container-fluid" *ngIf="rentedEqiupments.length > 0">
+      <p-table #dt [value]="rentedEqiupments" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'vendor_code']" >
+        <ng-template pTemplate="caption">
+          <div style="text-align: right">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 4em">Id</th>
+            <th>Name</th>
+            <th>Vendor Code</th>
+            <th>Serial Number</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th style="width: 8em">Actions</th>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-equipment>
+          <tr>
+            <td>{{equipment.id}}</td>
+            <td>{{equipment.name}}</td>
+            <td>{{equipment.vendor_code}}</td>
+            <td>{{equipment.serial_number}}</td>
+            <td>{{equipment.size}}</td>
+            <td>{{equipment.price}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteEquipment(equipment)">
+                <span class="fas fa-times"></span>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 
   <ng-template #content let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title">Choose equipments </h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>    
-      <div class="modal-body">
-        
-        <div class="container-fluid">
-          <table class="table table-sm table-striped mt-3">
-            <thead class = "thead-secondary">
+    <div class="modal-header">
+      <h4 class="modal-title">Choose equipments </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <p-table #dt [value]="equipments" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'vendor_code']" >
+          <ng-template pTemplate="caption">
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
             <tr>
-              <th style="visibility: hidden">Id</th>
+              <th style="width: 4em">Id</th>
               <th>Name</th>
               <th>Vendor Code</th>
               <th>Serial Number</th>
               <th>Size</th>
-              <th>Price per day</th>
-              <th>Actions</th>
+              <th>Price</th>
+              <th style="width: 8em">Actions</th>
             </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let equipment of equipments">
-              <td style="visibility: visible">{{equipment.id}}</td>
+          </ng-template>
+          <ng-template pTemplate="body" let-equipment>
+            <tr>
+              <td>{{equipment.id}}</td>
               <td>{{equipment.name}}</td>
               <td>{{equipment.vendor_code}}</td>
               <td>{{equipment.serial_number}}</td>
               <td>{{equipment.size}}</td>
-              <td>{{equipment.price_per_day}}</td>
+              <td>{{equipment.price}}</td>
               <td>
-                <button class="btn btn-danger" [disabled]="equipment.status === 'rented'" (click)="rentEquipment(equipment)"> <i class="fa fa-plus"></i> Add </button>
+                <button class="btn btn-primary btn-sm" [disabled]="equipment.status === 'rented'" (click)="rentEquipment(equipment)">
+                  <i class="fa fa-plus"></i>
+                </button>
               </td>
             </tr>
-            </tbody>
-          </table>
-        </div>
+          </ng-template>
+        </p-table>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-      </div>
-    </ng-template>     
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
 
   <button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Add Equipment</button>
-
+</div>

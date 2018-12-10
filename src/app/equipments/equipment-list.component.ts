@@ -12,12 +12,22 @@ import {EquipmentService} from '../core';
 })
 export class EquipmentListComponent implements OnInit {
   equipments: Equipment[];
+  cols: any[];
 
   constructor(private equipmentService: EquipmentService,
               private router: Router) { }
 
   ngOnInit() {
     this.getEquipments();
+    this.cols = [
+          { field: 'id', header: 'id' },
+          { field: 'name', header: 'name' },
+          { field: 'vendor_code', header: 'Vendor Code' },
+          { field: 'serial_number', header: 'Serial Number' },
+          { field: 'size', header: 'Size'},
+          { filed: 'price_per_day', header: 'Price' }
+        ];
+
   }
 
   getEquipments(): void {

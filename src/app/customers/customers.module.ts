@@ -7,12 +7,17 @@ import {AddCustomerComponent} from './add-customer.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CustomerComponent} from './customer.component';
 import {EditCustomerComponent} from './edit-customer.component';
+import {TableModule} from 'primeng/table';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   imports: [
     CommonModule,
     CustomersRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule,
+    NgbTooltipModule
   ],
   declarations: [CustomerListComponent, AddCustomerComponent, CustomerComponent, EditCustomerComponent]
 })

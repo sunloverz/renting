@@ -8,13 +8,15 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { EditRentComponent } from './edit-rent.component';
 import { EquipmentsModalComponent } from './equipments-modal.component';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   imports: [
     CommonModule,
     RentRoutingModule,
     ReactiveFormsModule,
-    Daterangepicker
+    Daterangepicker,
+    TableModule
   ],
   declarations: [RentComponent, NewRentComponent, EditRentComponent, EquipmentsModalComponent]
 })

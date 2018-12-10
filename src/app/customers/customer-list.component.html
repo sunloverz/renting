@@ -4,10 +4,17 @@
   <button class="btn btn-danger" routerLink="/customers/add-customer"> Add Customer</button>
   </div>
   <div class="container-fluid">
-  <table class="table table-sm table-striped mt-3">
-    <thead class = "thead-secondary">
-    <tr>
-      <th style="visibility: hidden">Id</th>
+ <p-table #dt [value]="customers" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'phone']" >
+    <ng-template pTemplate="caption">
+        <div style="text-align: right">        
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+                        <th style="width: 4em">Id</th>
+
       <th>Name</th>
       <th>Phone</th>
       <th>Email</th>
@@ -17,32 +24,40 @@
       <th>Passport id</th>
       <th>Passport issued by</th>
       <th>Passport issue date</th>
-      <th>In blacklist?</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let customer of customers">
-      <td style="visibility: visible">{{customer.id}}</td>
+      <th>In blacklist</th>
+      <th style="width: 8em">Actions</th>    
+      
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+      <tr>
+      <td>{{customer.id}}</td>
       <td>{{customer.name}}</td>
       <td>{{customer.phone}}</td>
       <td>{{customer.email}}</td>
       <td>{{customer.discount}}</td>
-      <td>{{customer.birthdate}}</td>
+      <td>{{customer.birthdate | date: 'MMM d, y, h:mm a'}}</td>
       <td>{{customer.address}}</td>
       <td>{{customer.passport_id}}</td>
       <td>{{customer.issued_by}}</td>
-      <td>{{customer.issue_date}}</td>
+      <td>{{customer.issue_date | date: 'MMM d, y, h:mm a'}}</td>
       <td>{{customer.in_blacklist}}</td>
-      <td>
-        <button class="btn btn-danger mb-3" (click)="deleteCustomer(customer)"> Delete</button>
-        <a class="btn btn-danger" [routerLink]="[customer.id, 'edit']"> Edit </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+       <td>
+
+         <div class="btn-group flex-btn-group-container">
+          <button [routerLink]="[customer.id, 'edit']" class="btn btn-primary btn-sm"> 
+            <span class="fas fa-pencil-alt"></span> 
+          </button>
+          <button (click)="deleteCustomer(customer)" class="btn btn-danger btn-sm"> 
+            <span class="fas fa-times"></span>   
+          </button>
+         
+         </div>
+       </td>
+      </tr>   
+    </ng-template>
+</p-table>
+
   </div>
-
-
 
 

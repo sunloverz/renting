@@ -7,13 +7,16 @@ import { EquipmentEditComponent } from './equipment-edit.component';
 import { AddEquipmentComponent } from './add-equipment.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
+import {TableModule} from 'primeng/table';
+
 
 @NgModule({
   imports: [
     CommonModule,
     EquipmentsRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TableModule
   ],
   declarations: [EquipmentListComponent, EquipmentEditComponent, AddEquipmentComponent]
 })

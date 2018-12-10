@@ -10,12 +10,14 @@ import {Router} from '@angular/router';
 })
 export class RentComponent implements OnInit {
   rents: Rent[];
+  cols: any[];
 
   constructor(private rentService: RentService,
               private router: Router) { }
 
   ngOnInit() {
     this.fetchRents();
+
   }
 
   fetchRents(): void {
