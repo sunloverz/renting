@@ -1,14 +1,15 @@
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col-lg-12">
-      <h2> Equipments </h2>
-      <button class="btn btn-danger float-right" routerLink="/equipments/add-equipment"> Add Equipment</button>
+    <div class="col-lg-12 mt-4">
+      <button class="btn btn-outline-primary float-right" routerLink="/equipments/add-equipment"> 
+      <span class="fas fa-plus"></span> Add equipment
+      </button>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12 mt-3">
       <p-table #dt [columns]="cols" [value]="equipments" sortMode="multiple"  [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'vendor_code', 'serial_number']">
         <ng-template pTemplate="caption">
           <div style="text-align: right">

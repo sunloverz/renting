@@ -1,25 +1,23 @@
-<div class="container-fluid">
-
+<div class="container">
   <div class="row">
-    <div class="col-lg-12">
-      <h2> Rents </h2>
-      <button class="btn btn-primary float-right" routerLink="new"> <i class="fa fa-plus"></i> Add a new rent</button>
+    <div class="col-lg-12 mt-4">
+      <button class="btn btn-outline-primary float-right" routerLink="new"> <i class="fa fa-plus"></i> Add rent</button>
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-primary">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+        <label class="btn btn-outline-primary">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Reserved
         </label>
-        <label class="btn btn-primary">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+        <label class="btn btn-outline-primary">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Rented
         </label>
-        <label class="btn btn-primary">
-          <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+        <label class="btn btn-outline-primary">
+          <input type="radio" name="options" id="option3" autocomplete="off"> Expired
         </label>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12 mt-3">
       <p-table #dt [value]="rents" [paginator]="true" [rows]="15" [globalFilterFields]="['id','customer.name', 'status']" sortMode="multiple" >
         <ng-template pTemplate="caption">
           <div style="text-align: right">
@@ -29,7 +27,7 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th [pSortableColumn]="'id'" style="width: 4em">
+            <th [pSortableColumn]="'id'" style="width: 5em">
               Id
               <p-sortIcon [field]="'id'"></p-sortIcon>
             </th>
@@ -62,8 +60,8 @@
             <td>{{rent.id}}</td>
             <td><a [routerLink]="['/customers', rent.customer_id, 'edit']"> {{rent.customer.name}} </a></td>
             <td>{{rent.status}}</td>
-            <td>{{rent.start_date | date: 'MMM d, y, h:mm a'}}</td>
-            <td>{{rent.end_date | date: 'MMM d, y, h:mm a'}}</td>
+            <td>{{rent.start_date | date: 'd-M-y h:mm a'}}</td>
+            <td>{{rent.end_date | date: 'd-M-y h:mm a'}}</td>
             <td>{{rent.price}}</td>
             <td>{{rent.paid}}</td>
             <td>

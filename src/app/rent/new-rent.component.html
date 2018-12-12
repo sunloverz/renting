@@ -1,9 +1,5 @@
-
 <div class="container mt-3 mb-3">
-  <div class="row justify-content-md-center">
-    <div class="col col-lg-2">
-    </div>
-
+  <div class="row">
     <div class="col-md-12 bg-light text-dark">
       <h2 class="text-center">Create Rent</h2>
       <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
@@ -30,56 +26,49 @@
           <input type="number" formControlName="paid" name="paid" class="col-md-6 col-sm-6 form-control" id="paid">
         </div>
 
+        <div *ngIf="rentedEqiupments.length > 0">
+          <span>Equipments:</span>
+          <p-table #dt [value]="rentedEqiupments" [paginator]="true" [rows]="15">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 4em">Id</th>
+                <th>Name</th>
+                <th>Vendor Code</th>
+                <th>Serial Number</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th style="width: 8em">Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-equipment>
+              <tr>
+                <td>{{equipment.id}}</td>
+                <td>{{equipment.name}}</td>
+                <td>{{equipment.vendor_code}}</td>
+                <td>{{equipment.serial_number}}</td>
+                <td>{{equipment.size}}</td>
+                <td>{{equipment.price_per_day}}</td>
+                <td>
+                  <button class="btn btn-danger btn-sm" (click)="deleteEquipment(equipment)">
+                    <span class="fas fa-times"></span>
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <button class="btn btn-outline-primary btn-sm mt-3" type="button" (click)="openLg(content)">Add Equipment</button>
         <div class="form-group">
+          <br/>
           <p> Subtotal: {{ subtotal }}</p>
           <p> Discount: {{ discount }}</p>
           <p> Total: {{ total }}</p>
-
         </div>
 
-        <button class="btn btn-success" type="submit">Rent</button>
+        <button class="btn btn-success" type="submit">Rent</button> &nbsp;
         <button class="btn btn-primary" type="button" (click)="onReserve()">Reserve</button>
       </form>
-    </div>
-
-    <div class="col col-lg-2">
-    </div>
-
-    <div class="container-fluid" *ngIf="rentedEqiupments.length > 0">
-      <p-table #dt [value]="rentedEqiupments" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'vendor_code']" >
-        <ng-template pTemplate="caption">
-          <div style="text-align: right">
-            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-          </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="width: 4em">Id</th>
-            <th>Name</th>
-            <th>Vendor Code</th>
-            <th>Serial Number</th>
-            <th>Size</th>
-            <th>Price</th>
-            <th style="width: 8em">Actions</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-equipment>
-          <tr>
-            <td>{{equipment.id}}</td>
-            <td>{{equipment.name}}</td>
-            <td>{{equipment.vendor_code}}</td>
-            <td>{{equipment.serial_number}}</td>
-            <td>{{equipment.size}}</td>
-            <td>{{equipment.price}}</td>
-            <td>
-              <button class="btn btn-danger btn-sm" (click)="deleteEquipment(equipment)">
-                <span class="fas fa-times"></span>
-              </button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
     </div>
   </div>
 
@@ -117,7 +106,7 @@
               <td>{{equipment.vendor_code}}</td>
               <td>{{equipment.serial_number}}</td>
               <td>{{equipment.size}}</td>
-              <td>{{equipment.price}}</td>
+              <td>{{equipment.price_per_day}}</td>
               <td>
                 <button class="btn btn-primary btn-sm" [disabled]="equipment.status === 'rented'" (click)="rentEquipment(equipment)">
                   <i class="fa fa-plus"></i>
@@ -133,5 +122,4 @@
     </div>
   </ng-template>
 
-  <button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Add Equipment</button>
 </div>

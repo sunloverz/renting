@@ -1,16 +1,17 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {CartService, Customer, CustomerService, RentService, Equipment, EquipmentStoreService, EquipmentService} from '../core';
+import {Customer, CustomerService, RentService, Equipment, EquipmentService} from '../core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { DaterangePickerComponent } from 'ng2-daterangepicker';
+import {DialogService} from 'primeng/api';
 
 @Component({
   selector: 'app-new-rent',
   templateUrl: './new-rent.component.html',
   styleUrls: ['./new-rent.component.css']
-})
+  })
 export class NewRentComponent implements OnInit {
 
   @ViewChild(DaterangePickerComponent)

@@ -1,10 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 mt-4">
+        <button class="btn btn-outline-primary float-right" routerLink="/customers/add-customer"> <span class="fas fa-plus"></span> Add customer</button>
+    </div>
+  </div>
 
-<div class="container-fluid">
-  <h2> Customer Details</h2>
-  <button class="btn btn-danger" routerLink="/customers/add-customer"> Add Customer</button>
-</div>
-<div class="container-fluid">
-  <p-table #dt [value]="customers" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'phone']" >
+  <div class="row">
+    <div class="col-lg-12 mt-3">
+  <p-table #dt [value]="customers" [paginator]="true" [rows]="15" [globalFilterFields]="['id','name', 'phone']">
     <ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -16,13 +19,9 @@
         <th style="width: 4em">Id</th>
         <th>Name</th>
         <th>Phone</th>
-        <th>Email</th>
-        <th>Discount</th>
         <th>Birthdate</th>
         <th>Address</th>
-        <th>Passport id</th>
-        <th>Passport issued by</th>
-        <th>Passport issue date</th>
+        <th>Discount</th>
         <th>In blacklist</th>
         <th style="width: 8em">Actions</th>
       </tr>
@@ -32,14 +31,10 @@
         <td>{{customer.id}}</td>
         <td>{{customer.name}}</td>
         <td>{{customer.phone}}</td>
-        <td>{{customer.email}}</td>
-        <td>{{customer.discount}}</td>
-        <td>{{customer.birthdate | date: 'MMM d, y, h:mm a'}}</td>
+        <td>{{customer.birthdate | date: 'MMM d, y'}}</td>
         <td>{{customer.address}}</td>
-        <td>{{customer.passport_id}}</td>
-        <td>{{customer.issued_by}}</td>
-        <td>{{customer.issue_date | date: 'MMM d, y, h:mm a'}}</td>
-        <td>{{customer.in_blacklist}}</td>
+        <td>{{customer.discount}}</td>
+        <td>{{customer.in_blacklist ? 'Yes': 'No'}}</td>
         <td>
           <div class="btn-group flex-btn-group-container">
             <button [routerLink]="[customer.id, 'edit']" class="btn btn-primary btn-sm">
@@ -53,7 +48,8 @@
       </tr>
     </ng-template>
   </p-table>
-
+  </div>
+  </div>
 </div>
 
 

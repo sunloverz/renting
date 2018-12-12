@@ -18,6 +18,8 @@ import {TableModule} from 'primeng/table';
     Daterangepicker,
     TableModule
   ],
-  declarations: [RentComponent, NewRentComponent, EditRentComponent, EquipmentsModalComponent]
+  // tslint:disable-next-line:max-line-length
+  declarations: [RentComponent, NewRentComponent, EditRentComponent, EquipmentsModalComponent],
+
 })
 export class RentModule { }
